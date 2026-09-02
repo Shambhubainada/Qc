@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Godown Stack Monitoring Dashboard</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="brand"><div class="brand-icon">⌂</div><div><h1>GODOWN STACK MONITORING DASHBOARD</h1><div class="subtitle">Live Data from Google Sheet (Master Stock)</div></div></div>
+  <div class="head-right"><div><b>Last Updated:</b><span id="updated">—</span></div><button class="refresh" onclick="loadData()" title="Refresh">↻</button></div>
+</header>
+<main>
+  <div id="status" class="status">Connecting to Google Sheet…</div>
+  <div class="cards">
+    <div class="card blue"><div class="label">TOTAL STACKS</div><div class="value" id="total">—</div><div>All Stacks</div></div>
+    <div class="card green"><div class="label">TOTAL WHEAT</div><div class="value" id="wheat">—</div><div>Stacks</div></div>
+    <div class="card orange"><div class="label">TOTAL RICE</div><div class="value" id="rice">—</div><div>Stacks</div></div>
+    <div class="card teal"><div class="label">UNDER COVER</div><div class="value" id="underCount">—</div><div>Stacks</div></div>
+    <div class="card red"><div class="label">FUMIGATION DUE</div><div class="value" id="fumCount">—</div><div>&gt; 30 Days</div></div>
+  </div>
+
+  <section class="panel under-panel">
+    <div class="section-title blue-title">UNDER COVER STACK DETAILS</div>
+    <div class="table-wrap"><table><thead><tr><th>Sr. No.</th><th>Shed No.</th><th>Stack No.</th><th>Receipt Date</th><th>Commodity / Crop Year</th><th>Fumigation Date</th><th>Days Since Fumigation</th></tr></thead><tbody id="underBody"></tbody></table></div>
+    <div class="total-line blue-total">Total Under Cover Stacks: <b id="underTotal">0</b></div>
+  </section>
+
+  <section class="panel fum-panel">
+    <div class="section-title red-title">FUMIGATION DUE (&gt; 30 DAYS) STACK DETAILS</div>
+    <div class="table-wrap"><table><thead><tr><th>Sr. No.</th><th>Shed No.</th><th>Stack No.</th><th>Receipt Date</th><th>Commodity / Crop Year</th><th>Last Fumigation</th><th>Days Since Fumigation</th></tr></thead><tbody id="fumBody"></tbody></table></div>
+    <div class="total-line red-total">Total Fumigation Due Stacks (&gt; 30 Days): <b id="fumTotal">0</b></div>
+  </section>
+
+  <section class="panel priority-panel">
+    <div class="section-head"><div class="section-title green-title">PRIORITY VIEW – FIFO (OLDEST RECEIPT FIRST)</div><select id="priorityFilter" onchange="renderPriority()"><option value="wheat">WHEAT</option><option value="rice">RICE / FRK RRA</option><option value="all">ALL</option></select></div>
+    <div class="table-wrap"><table><thead><tr><th>Sr. No.</th><th>Shed No.</th><th>Stack No.</th><th>Receipt Date</th><th>Commodity / Crop Year</th><th>Qty (MT)</th><th>Cat</th></tr></thead><tbody id="priorityBody"></tbody></table></div>
+    <div class="total-line green-total" id="priorityTotal">Total Wheat Stacks: <b>0</b></div>
+  </section>
+</main>
+<footer>Live data updates automatically every 30 seconds <span>|</span> Source: Google Sheets (Master Stock)</footer>
+<script src="script.js"></script>
+</body></html>
